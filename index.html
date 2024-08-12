@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cat Subreddits</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        h1 {
+            color: #340f0f;
+            text-align: center;
+        }
+        .subreddit-list {
+            list-style-type: none;
+            padding: 0;
+            max-width: 600px;
+            margin: 20px auto;
+            background: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        .subreddit-list li {
+            border-bottom: 1px solid #ddd;
+            padding: 15px 20px;
+        }
+        .subreddit-list li:last-child {
+            border-bottom: none;
+        }
+        .subreddit-list a {
+            text-decoration: none;
+            color: #340f0f;
+            font-weight: bold;
+        }
+        .subreddit-list a:hover {
+            color: #cd1818;
+        }
+    </style>
+</head>
+<body>
+    <h1>Cat Subreddits</h1>
+    <ul class="subreddit-list" id="subreddit-list">
+        <!-- Example of a filled item -->
+        <!-- <li><a href="https://www.reddit.com/r/cats" target="_blank">r/cats</a></li> -->
+    </ul>
+</body>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        fetch('cat_subreddits.json')
+            .then(response => response.json())
+            .then(data => {
+                const list = document.getElementById('subreddit-list');
+                data.forEach(subreddit => {
+                    const listItem = document.createElement('li');
+                    const link = document.createElement('a');
+                    link.href = `https://www.reddit.com/r/${subreddit}`;
+                    link.textContent = `r/${subreddit}`;
+                    link.target = '_blank';
+                    listItem.appendChild(link);
+                    list.appendChild(listItem);
+                });
+            })
+            .catch(error => console.error('Error loading the JSON file:', error));
+    });
+</script>
+</html>
